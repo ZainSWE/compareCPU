@@ -13,9 +13,7 @@ typedef struct CPU {
 } CPU;
 
 void hashSeperator(int size);
-
-double calculateScore1(CPU *cpu1, double weight);
-double calculateScore2(CPU *cpu2, double weight);
+double calculateScore(CPU *cpu, double weight);
 
 int main () {
 
@@ -135,11 +133,11 @@ int main () {
 
     } while (weight > 1.0 || weight < 0.0);
 
-    scoreCPU1 = calculateScore1(cpu1, weight);
+    scoreCPU1 = calculateScore(cpu1, weight);
     valueCPU1 = scoreCPU1 / cpu[0].price;
     efficiencyCPU1 = scoreCPU1 / cpu[0].tdp;
 
-    scoreCPU2 = calculateScore2(cpu2, weight);
+    scoreCPU2 = calculateScore(cpu2, weight);
     valueCPU2 = scoreCPU2 / cpu[1].price;
     efficiencyCPU2 = scoreCPU2 / cpu[1].tdp;
 
@@ -158,18 +156,8 @@ int main () {
     return 0;
 }
 
-double calculateScore1(CPU *cpu1, double weight) {
-
-    double result1 = (cpu1->clock * cpu1->cores) + (cpu1->l3cache * weight);
-
-    return result1;
-}
-
-double calculateScore2(CPU *cpu2, double weight) {
-
-    double result2 = (cpu2->clock * cpu2->cores) + (cpu2->l3cache * weight);
-
-    return result2;
+double calculateScore(CPU *cpu, double weight) {
+    return (cpu->clock * cpu->cores) + (cpu->l3cache * weight);
 }
 
 void hashSeperator(int size) {
